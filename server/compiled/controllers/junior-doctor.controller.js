@@ -8,26 +8,36 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createJuniorNote = exports.getJuniorDoctor = exports.createJuniorDoctor = void 0;
 const junior_doctors_1 = require("../models/methods/junior-doctors");
+const bcrypt_1 = __importDefault(require("bcrypt"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const saltRounds = 10;
+const SECRET_KEY = process.env.SECRET_KEY || "default_secret_key";
 function createJuniorDoctor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { name, email, password, phoneNumber, address, licenseNumber, gender, } = req.body;
+            const hashedPassword = yield bcrypt_1.default.hash(password, saltRounds);
             const newJuniorDoctor = {
                 name,
                 email,
-                password,
+                password: hashedPassword,
                 phoneNumber,
                 address,
                 licenseNumber,
                 gender,
             };
             const createJuniorDoctor = yield (0, junior_doctors_1.createJuniorDoctorModel)(newJuniorDoctor);
+            const accessToken = jsonwebtoken_1.default.sign({ id: createJuniorDoctor.id }, SECRET_KEY);
             res.status(201).json({
                 message: 'Junior doctor account created successfully',
                 result: createJuniorDoctor,
+                accessToken,
             });
         }
         catch (error) {

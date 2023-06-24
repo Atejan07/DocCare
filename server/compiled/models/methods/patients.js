@@ -81,8 +81,19 @@ function getPatientsModel() {
                         as: 'patientMessages',
                     },
                     {
+                        model: MedicalInfo_1.MedicalInfo,
+                        as: 'medicalInfo',
+                    },
+                    {
                         model: Appointment_1.Appointment,
                         as: 'patientAppointments',
+                        include: [
+                            {
+                                model: Doctor_1.Doctor,
+                                as: 'doctorAppointment',
+                                attributes: { include: ['name', 'licenseNumber'] },
+                            },
+                        ],
                     },
                     {
                         model: MedicalInfo_1.MedicalInfo,
