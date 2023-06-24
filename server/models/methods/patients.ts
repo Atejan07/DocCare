@@ -4,8 +4,13 @@ import { Patient } from '../schema/Patient';
 import { Appointment } from '../schema/Appointment';
 import { Message } from '../schema/Message';
 import { MedicalInfo } from '../schema/MedicalInfo';
+import { Doctor } from '../schema/Doctor';
 const PatientDB = db.Patient;
 const AppointmentDB = db.Appointment;
+
+
+
+
 async function createPatientModel(patient: TypePatient) {
   try {
     const newPatient = await PatientDB.create(patient);
@@ -24,8 +29,19 @@ async function getPatientModel(id: string) {
           as: 'patientMessages',
         },
         {
+          model: MedicalInfo,
+          as: 'medicalInfo',
+        },
+        {
           model: Appointment,
           as: 'patientAppointments',
+          include: [
+            {
+              model: Doctor,
+              as: 'doctorAppointment',
+              attributes: { include: ['name', 'licenseNumber'] },
+            },
+          ],
         },
         {
           model: MedicalInfo,
@@ -40,20 +56,33 @@ async function getPatientModel(id: string) {
 }
 async function getPatientsModel() {
   try {
-    const patients = await PatientDB.findAll({include: [
-      {
-        model: Message,
-        as: 'patientMessages',
-      },
-      {
-        model: Appointment,
-        as: 'patientAppointments',
-      },
-      {
-        model: MedicalInfo,
-        as: 'medicalInfo',
-      },
-    ],});
+    const patients = await PatientDB.findAll({
+      include: [
+        {
+          model: Message,
+          as: 'patientMessages',
+        },
+        {
+          model: MedicalInfo,
+          as: 'medicalInfo',
+        },
+        {
+          model: Appointment,
+          as: 'patientAppointments',
+          include: [
+            {
+              model: Doctor,
+              as: 'doctorAppointment',
+              attributes: { include: ['name', 'licenseNumber'] },
+            },
+          ],
+        },
+        {
+          model: MedicalInfo,
+          as: 'medicalInfo',
+        },
+      ],
+    });
     return patients;
   } catch (error) {
     throw new Error();
