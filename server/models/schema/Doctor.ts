@@ -47,7 +47,7 @@ export class Doctor extends Model<
     | 'Gastroenterology'
     | 'Neurology'
     | 'Oncology';
-  declare phoneNumber: number | null;
+  declare phoneNumber: string | null;
   declare address: string | null;
   declare licenseNumber: string | null;
   declare gender: 'Male' | 'Female';
@@ -139,7 +139,7 @@ export class Doctor extends Model<
           ),
         },
         phoneNumber: {
-          type: DataTypes.INTEGER,
+          type: DataTypes.STRING,
         },
         address: {
           type: DataTypes.STRING,

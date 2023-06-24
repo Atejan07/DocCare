@@ -29,7 +29,7 @@ export class JuniorDoctor extends Model<
   declare email: string | null
   declare password: string | null
   declare licenseNumber: string | null
-  declare phoneNumber: number | null
+  declare phoneNumber: string | null
   declare address: string | null
   declare gender: 'Male' | 'Female' | null
   declare createdAt: CreationOptional<Date>
@@ -70,7 +70,7 @@ export class JuniorDoctor extends Model<
         type: DataTypes.STRING
       },
       phoneNumber: {
-        type: DataTypes.INTEGER
+        type: DataTypes.STRING
       },
       address: {
         type: DataTypes.STRING

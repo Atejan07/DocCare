@@ -24,7 +24,7 @@ class Doctor extends sequelize_1.Model {
                 type: sequelize_1.DataTypes.ENUM('General Practice', 'Internal Medicine', 'Pediatrics', 'Obstetrics and Gynecology', 'Surgery', 'Psychiatry', 'Dermatology', 'Ophthalmology', 'Ear Nose and Throat (ENT)', 'Cardiology', 'Endocrinology', 'Gastroenterology', 'Neurology', 'Oncology'),
             },
             phoneNumber: {
-                type: sequelize_1.DataTypes.INTEGER,
+                type: sequelize_1.DataTypes.STRING,
             },
             address: {
                 type: sequelize_1.DataTypes.STRING,

@@ -17,7 +17,7 @@ const associations_1 = require("./associations");
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const dbName = 'DocCare';
-const db = new sequelize_1.Sequelize(dbName, 'root', `${process.env.MYSQL_PASSWORD}`, {
+const db = new sequelize_1.Sequelize(dbName, `${process.env.MYSQL_USERNAME}`, `${process.env.MYSQL_PASSWORD}`, {
     host: 'localhost',
     port: 3306,
     dialect: 'mysql',

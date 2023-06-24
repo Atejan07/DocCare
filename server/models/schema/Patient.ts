@@ -37,7 +37,7 @@ export class Patient extends Model<
   declare name: string | null;
   declare email: string | null;
   declare password: string | null;
-  declare phoneNumber: number | null;
+  declare phoneNumber: string | null;
   declare address: string | null;
   declare dateOfBirth: string | null;
   declare gender: 'Male' | 'Female' | null;
@@ -130,7 +130,7 @@ export class Patient extends Model<
           type: DataTypes.STRING,
         },
         phoneNumber: {
-          type: DataTypes.INTEGER,
+          type: DataTypes.STRING,
         },
         address: {
           type: DataTypes.STRING,
