@@ -10,6 +10,12 @@ import {
   deleteAppointmentModel,
 } from '../models/methods/patients';
 import { TypeAppointment } from '../types/types';
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
+const saltRounds = 10;
+const SECRET_KEY = process.env.SECRET_KEY || "default_secret_key";
+
 
 async function createPatient(req: Request, res: Response) {
   try {
@@ -23,10 +29,11 @@ async function createPatient(req: Request, res: Response) {
       gender,
       conditions,
     } = req.body;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
     const newPatient = {
       name,
       email,
-      password,
+      password: hashedPassword,
       phoneNumber,
       address,
       dateOfBirth,
@@ -34,9 +41,11 @@ async function createPatient(req: Request, res: Response) {
       conditions,
     };
     const createPatient = await createPatientModel(newPatient);
+    const accessToken = jwt.sign({ id: createPatient.id }, SECRET_KEY);
     res.status(201).json({
       message: 'Patient account created successfully',
       result: createPatient,
+      accessToken,
     });
   } catch (error) {
     res.status(400).json({ error: 'Failed to create a patient account' });
