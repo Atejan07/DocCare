@@ -2,10 +2,10 @@ import db from '../schema/index';
 import { TypeAppointment, TypePatient } from '../../types/types';
 import { Patient } from '../schema/Patient';
 import { Appointment } from '../schema/Appointment';
-
+import { Message } from '../schema/Message';
+import { MedicalInfo } from '../schema/MedicalInfo';
 const PatientDB = db.Patient;
 const AppointmentDB = db.Appointment;
-
 async function createPatientModel(patient: TypePatient) {
   try {
     const newPatient = await PatientDB.create(patient);
@@ -14,25 +14,51 @@ async function createPatientModel(patient: TypePatient) {
     throw new Error();
   }
 }
-
 async function getPatientModel(id: string) {
   try {
-    const patient = await PatientDB.findOne({ where: { id: id } });
+    const patient = await PatientDB.findOne({
+      where: { id: id },
+      include: [
+        {
+          model: Message,
+          as: 'patientMessages',
+        },
+        {
+          model: Appointment,
+          as: 'patientAppointments',
+        },
+        {
+          model: MedicalInfo,
+          as: 'medicalInfo',
+        },
+      ],
+    });
     return patient;
   } catch (error) {
     throw new Error();
   }
 }
-
 async function getPatientsModel() {
   try {
-    const patients = await PatientDB.findAll();
+    const patients = await PatientDB.findAll({include: [
+      {
+        model: Message,
+        as: 'patientMessages',
+      },
+      {
+        model: Appointment,
+        as: 'patientAppointments',
+      },
+      {
+        model: MedicalInfo,
+        as: 'medicalInfo',
+      },
+    ],});
     return patients;
   } catch (error) {
     throw new Error();
   }
 }
-
 async function updatePatientModel(
   patientId: string,
   updatedPatient: Partial<Patient>
@@ -46,7 +72,6 @@ async function updatePatientModel(
     throw new Error();
   }
 }
-
 async function deletePatientModel(patientId: string) {
   try {
     const patient = await PatientDB.findOne({ where: { id: patientId } });
@@ -56,7 +81,6 @@ async function deletePatientModel(patientId: string) {
     throw new Error();
   }
 }
-
 async function getLastCheckupModel(patientId: string) {
   try {
     //     patient -> appointments -> attended (true) -> get the last date
@@ -79,7 +103,6 @@ async function getLastCheckupModel(patientId: string) {
     throw new Error();
   }
 }
-
 async function createAppointmentModel(appointment: TypeAppointment) {
   try {
     const newAppointment = await AppointmentDB.create(appointment);
@@ -88,7 +111,6 @@ async function createAppointmentModel(appointment: TypeAppointment) {
     throw new Error();
   }
 }
-
 async function deleteAppointmentModel(appointmentId: string) {
   try {
     const appointment = await AppointmentDB.findOne({
@@ -100,7 +122,6 @@ async function deleteAppointmentModel(appointmentId: string) {
     throw new Error();
   }
 }
-
 export {
   createPatientModel,
   getPatientModel,
