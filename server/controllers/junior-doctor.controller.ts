@@ -4,6 +4,11 @@ import {
   getJuniorDoctorModel,
   createJuniorNoteModel,
 } from '../models/methods/junior-doctors';
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
+const saltRounds = 10;
+const SECRET_KEY = process.env.SECRET_KEY || "default_secret_key";
 
 async function createJuniorDoctor(req: Request, res: Response) {
   try {
@@ -16,19 +21,22 @@ async function createJuniorDoctor(req: Request, res: Response) {
       licenseNumber,
       gender,
     } = req.body;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
     const newJuniorDoctor = {
       name,
       email,
-      password,
+      password: hashedPassword,
       phoneNumber,
       address,
       licenseNumber,
       gender,
     };
     const createJuniorDoctor = await createJuniorDoctorModel(newJuniorDoctor);
+    const accessToken = jwt.sign({ id: createJuniorDoctor.id }, SECRET_KEY);
     res.status(201).json({
       message: 'Junior doctor account created successfully',
       result: createJuniorDoctor,
+      accessToken,
     });
   } catch (error) {
     res.status(400).json({ error: 'Failed to create a junior doctor account' });

@@ -11,7 +11,8 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const saltRounds = 10;
-const SECRET_KEY = process.env.SECRET_KEY;
+const SECRET_KEY = process.env.SECRET_KEY || "default_secret_key";
+
 
 function createEmptyAvailability() {
   const availability = {} as TypeAvailability;
