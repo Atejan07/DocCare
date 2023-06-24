@@ -6,8 +6,11 @@ import {
   createMedicalInfoModel,
   createPatientSummaryModel,
 } from '../models/methods/doctors';
-
 import { TypeDoctor, TypeMedicalInfo, TypeAvailability } from '../types/types';
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const saltRounds = 10;
+const SECRET_KEY = process.env.SECRET_KEY;
 
 function createEmptyAvailability() {
   const availability = {} as TypeAvailability;
@@ -30,10 +33,11 @@ async function createDoctor(req: Request, res: Response) {
       gender,
       about,
     } = req.body;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
     const newDoctor = {
       name,
       email,
-      password,
+      password: hashedPassword,
       specialisation,
       phoneNumber,
       address,
@@ -43,14 +47,19 @@ async function createDoctor(req: Request, res: Response) {
       availability: createEmptyAvailability(),
     } as TypeDoctor;
     const createDoctor = await createDoctorModel(newDoctor);
+    const accessToken = jwt.sign({ id: createDoctor.id }, SECRET_KEY);
     res.status(201).json({
       message: 'Doctor account created successfully',
-      result: createDoctor,
+      result: createDoctor, 
+      accessToken,
     });
   } catch (error) {
     res.status(400).json({ error: 'Failed to create a doctor account' });
   }
 }
+
+
+
 async function getDoctor(req: Request, res: Response) {
   try {
     const doctorId = req.params.id;
