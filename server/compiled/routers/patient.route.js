@@ -14,10 +14,9 @@ exports.patientRouter = patientRouter;
 // patientRouter.post("/login", controller.login);
 // patientRouter.get("/profile",  patientAuthMiddleware , controller.profile);
 // patientRouter.post("/logout", controller.logout);
-// Create a new patient
-patientRouter.post('/patients', patient_controller_1.createPatient);
-patientRouter.get('/patients/:id', patient_controller_1.getPatient);
+patientRouter.post('/patient', patient_controller_1.createPatient);
+patientRouter.get('/patient/:id', patient_controller_1.getPatient);
 patientRouter.get('/patients', patient_controller_1.getPatients);
-patientRouter.put('/patients/:id', patient_controller_1.updatePatient);
-patientRouter.delete('/patients/:id', patient_controller_1.deletePatient);
-patientRouter.get('/patients/:id/last-checkup', patient_controller_1.getLastCheckup);
+patientRouter.put('/patient/:id', patient_controller_1.updatePatient);
+patientRouter.delete('/patient/:id', patient_controller_1.deletePatient);
+patientRouter.get('/patient/:id/last-checkup', patient_controller_1.getLastCheckup);

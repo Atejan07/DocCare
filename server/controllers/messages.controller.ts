@@ -1,8 +1,8 @@
 import { Express, Request, Response } from 'express';
 import {
-  createMessageModel,
-  getMessagesModel,
-} from '../models/methods/messages.ts';
+  sendMessageModel,
+  getMessagesModel
+} from '../models/methods/messages';
 
 async function sendMessage(req: Request, res: Response) {
   try {
@@ -22,7 +22,7 @@ async function sendMessage(req: Request, res: Response) {
       receiver_name,
       date,
     };
-    const createMessage = await createMessageModel(newMessage);
+    const createMessage = await sendMessageModel(newMessage);
     res.status(201).json({
       message: 'Message sent successfully',
       result: createMessage,
