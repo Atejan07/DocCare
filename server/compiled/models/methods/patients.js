@@ -14,6 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteAppointmentModel = exports.createAppointmentModel = exports.deletePatientModel = exports.getLastCheckupModel = exports.updatePatientModel = exports.getPatientsModel = exports.getPatientModel = exports.createPatientModel = void 0;
 const index_1 = __importDefault(require("../schema/index"));
+const Appointment_1 = require("../schema/Appointment");
+const Message_1 = require("../schema/Message");
+const MedicalInfo_1 = require("../schema/MedicalInfo");
+const Doctor_1 = require("../schema/Doctor");
 const PatientDB = index_1.default.Patient;
 const AppointmentDB = index_1.default.Appointment;
 function createPatientModel(patient) {
@@ -31,7 +35,34 @@ exports.createPatientModel = createPatientModel;
 function getPatientModel(id) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const patient = yield PatientDB.findOne({ where: { id: id } });
+            const patient = yield PatientDB.findOne({
+                where: { id: id },
+                include: [
+                    {
+                        model: Message_1.Message,
+                        as: 'patientMessages',
+                    },
+                    {
+                        model: MedicalInfo_1.MedicalInfo,
+                        as: 'medicalInfo',
+                    },
+                    {
+                        model: Appointment_1.Appointment,
+                        as: 'patientAppointments',
+                        include: [
+                            {
+                                model: Doctor_1.Doctor,
+                                as: 'doctorAppointment',
+                                attributes: { include: ['name', 'licenseNumber'] },
+                            },
+                        ],
+                    },
+                    {
+                        model: MedicalInfo_1.MedicalInfo,
+                        as: 'medicalInfo',
+                    },
+                ],
+            });
             return patient;
         }
         catch (error) {
@@ -43,7 +74,22 @@ exports.getPatientModel = getPatientModel;
 function getPatientsModel() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const patients = yield PatientDB.findAll();
+            const patients = yield PatientDB.findAll({
+                include: [
+                    {
+                        model: Message_1.Message,
+                        as: 'patientMessages',
+                    },
+                    {
+                        model: Appointment_1.Appointment,
+                        as: 'patientAppointments',
+                    },
+                    {
+                        model: MedicalInfo_1.MedicalInfo,
+                        as: 'medicalInfo',
+                    },
+                ],
+            });
             return patients;
         }
         catch (error) {

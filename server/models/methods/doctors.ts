@@ -1,6 +1,7 @@
 import db from '../schema/index';
 import { TypeDoctor, TypeMedicalInfo } from '../../types/types';
 import { Patient } from '../schema/Patient';
+import { Appointment } from '../schema/Appointment';
 
 const DoctorDB = db.Doctor;
 const PatientDB = db.Patient;
@@ -17,7 +18,19 @@ async function createDoctorModel(doctor: TypeDoctor) {
 
 async function getDoctorModel(id: string) {
   try {
-    const doctor = await DoctorDB.findOne({ where: { id: id } });
+    const doctor = await DoctorDB.findOne({
+      where: { id: id },
+      include: [
+        {
+          model: Appointment,
+          as: 'doctorAppointments',
+        },
+        {
+          model: Patient,
+          as: 'patients',
+        },
+      ],
+    });
     return doctor;
   } catch (error) {
     throw new Error();
@@ -26,7 +39,18 @@ async function getDoctorModel(id: string) {
 
 async function getDoctorsModel() {
   try {
-    const doctors = await DoctorDB.findAll();
+    const doctors = await DoctorDB.findAll({
+      include: [
+        {
+          model: Appointment,
+          as: 'doctorAppointments',
+        },
+        {
+          model: Patient,
+          as: 'patients',
+        },
+      ],
+    });
     return doctors;
   } catch (error) {
     throw new Error();

@@ -5,11 +5,16 @@ dotenv.config();
 
 const dbName = 'DocCare';
 
-const db = new Sequelize(dbName, `${process.env.MYSQL_USERNAME}`, `${process.env.MYSQL_PASSWORD}`, {
-  host: 'localhost',
-  port: 3306,
-  dialect: 'mysql',
-});
+const db = new Sequelize(
+  dbName,
+  `${process.env.MYSQL_USERNAME}`,
+  `${process.env.MYSQL_PASSWORD}`,
+  {
+    host: 'localhost',
+    port: 3306,
+    dialect: 'mysql',
+  }
+);
 
 const { Message, Appointment, Doctor, JuniorDoctor, MedicalInfo, Patient } =
   initModels(db);

@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createJuniorNoteModel = exports.getJuniorDoctorModel = exports.createJuniorDoctorModel = void 0;
+const Message_1 = require("../schema/Message");
 const index_1 = __importDefault(require("../schema/index"));
 const PatientDB = index_1.default.Patient;
 const JuniorDoctorDB = index_1.default.JuniorDoctor;
@@ -33,6 +34,10 @@ function getJuniorDoctorModel(juniorId) {
         try {
             const juniorDoctor = yield JuniorDoctorDB.findOne({
                 where: { id: juniorId },
+                include: {
+                    model: Message_1.Message,
+                    as: 'juniorMessages',
+                },
             });
             return juniorDoctor;
         }

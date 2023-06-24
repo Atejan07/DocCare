@@ -14,6 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createPatientSummaryModel = exports.createMedicalInfoModel = exports.getDoctorsModel = exports.getDoctorModel = exports.createDoctorModel = void 0;
 const index_1 = __importDefault(require("../schema/index"));
+const Patient_1 = require("../schema/Patient");
+const Appointment_1 = require("../schema/Appointment");
 const DoctorDB = index_1.default.Doctor;
 const PatientDB = index_1.default.Patient;
 const MedicalInfoDB = index_1.default.MedicalInfo;
@@ -32,7 +34,19 @@ exports.createDoctorModel = createDoctorModel;
 function getDoctorModel(id) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const doctor = yield DoctorDB.findOne({ where: { id: id } });
+            const doctor = yield DoctorDB.findOne({
+                where: { id: id },
+                include: [
+                    {
+                        model: Appointment_1.Appointment,
+                        as: 'doctorAppointments',
+                    },
+                    {
+                        model: Patient_1.Patient,
+                        as: 'patients',
+                    },
+                ],
+            });
             return doctor;
         }
         catch (error) {
@@ -44,7 +58,18 @@ exports.getDoctorModel = getDoctorModel;
 function getDoctorsModel() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const doctors = yield DoctorDB.findAll();
+            const doctors = yield DoctorDB.findAll({
+                include: [
+                    {
+                        model: Appointment_1.Appointment,
+                        as: 'doctorAppointments',
+                    },
+                    {
+                        model: Patient_1.Patient,
+                        as: 'patients',
+                    },
+                ],
+            });
             return doctors;
         }
         catch (error) {
