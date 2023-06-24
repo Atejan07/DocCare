@@ -7,7 +7,7 @@ import {
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { JuniorDoctor } from '../models/schema/JuniorDoctor';
-const saltRounds = 10;
+const saltRounds = 12;
 const SECRET_KEY = process.env.SECRET_KEY || "default_secret_key";
 
 async function createJuniorDoctor(req: Request, res: Response) {

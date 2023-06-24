@@ -11,7 +11,7 @@ const juniorDoctorRouter = Router();
 
 
 
-juniorDoctorRouter.post('/junior-doctor', createJuniorDoctor);
+juniorDoctorRouter.post('/junior-doctor/register', createJuniorDoctor);
 juniorDoctorRouter.post('/junior/login', loginJuniorDoctor )
 juniorDoctorRouter.get('/junior-doctor/:id',juniorDoctorAuthMiddleware,  getJuniorDoctor);
 juniorDoctorRouter.post('/junior-doctor/:id/note', createJuniorNote);

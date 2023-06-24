@@ -10,11 +10,11 @@ import {
   deleteAppointmentModel,
 } from '../models/methods/patients';
 import { TypeAppointment } from '../types/types';
-import { Patient } from '.././models/schema/Patient'
+import { Patient } from '../models/schema/Patient'
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-const saltRounds = 10;
+const saltRounds = 12;
 const SECRET_KEY = process.env.SECRET_KEY || "default_secret_key";
 
 

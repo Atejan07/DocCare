@@ -6,6 +6,7 @@ const junior_doctor_controller_1 = require("../controllers/junior-doctor.control
 const authentication_1 = require("../middleware/authentication");
 const juniorDoctorRouter = (0, express_1.Router)();
 exports.juniorDoctorRouter = juniorDoctorRouter;
-juniorDoctorRouter.post('/junior-doctor', authentication_1.juniorDoctorAuthMiddleware, junior_doctor_controller_1.createJuniorDoctor);
-juniorDoctorRouter.get('/junior-doctor/:id', junior_doctor_controller_1.getJuniorDoctor);
+juniorDoctorRouter.post('/junior-doctor/register', junior_doctor_controller_1.createJuniorDoctor);
+juniorDoctorRouter.post('/junior/login', junior_doctor_controller_1.loginJuniorDoctor);
+juniorDoctorRouter.get('/junior-doctor/:id', authentication_1.juniorDoctorAuthMiddleware, junior_doctor_controller_1.getJuniorDoctor);
 juniorDoctorRouter.post('/junior-doctor/:id/note', junior_doctor_controller_1.createJuniorNote);

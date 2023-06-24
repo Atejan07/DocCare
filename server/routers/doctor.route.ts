@@ -14,7 +14,7 @@ import { doctorAuthMiddleware } from '../middleware/authentication';
 const doctorRouter = Router();
 
 
-doctorRouter.post('/doctor', createDoctor);
+doctorRouter.post('/doctor/register', createDoctor);
 doctorRouter.post('/doctor/login', loginDoctor )
 doctorRouter.get('/doctor/:id', getDoctor);
 doctorRouter.get('/doctors', doctorAuthMiddleware, getDoctors);

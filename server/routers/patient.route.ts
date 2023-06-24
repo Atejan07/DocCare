@@ -15,7 +15,7 @@ import { Patient } from '../models/schema/Patient';
 const patientRouter = Router();
 
 
-patientRouter.post('/patient',createPatient);
+patientRouter.post('/patient/register', createPatient);
 patientRouter.post('/patient/login', loginPatient )
 patientRouter.get('/patient/:id', patientAuthMiddleware, getPatient);
 patientRouter.get('/patients', getPatients);

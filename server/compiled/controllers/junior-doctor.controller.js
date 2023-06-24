@@ -12,11 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createJuniorNote = exports.getJuniorDoctor = exports.createJuniorDoctor = void 0;
+exports.loginJuniorDoctor = exports.createJuniorNote = exports.getJuniorDoctor = exports.createJuniorDoctor = void 0;
 const junior_doctors_1 = require("../models/methods/junior-doctors");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const saltRounds = 10;
+const JuniorDoctor_1 = require("../models/schema/JuniorDoctor");
+const saltRounds = 12;
 const SECRET_KEY = process.env.SECRET_KEY || "default_secret_key";
 function createJuniorDoctor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -46,6 +47,31 @@ function createJuniorDoctor(req, res) {
     });
 }
 exports.createJuniorDoctor = createJuniorDoctor;
+function loginJuniorDoctor(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { email, password } = req.body;
+        try {
+            const jrDoctor = yield JuniorDoctor_1.JuniorDoctor.findOne({ where: { email: email } });
+            if (!jrDoctor) {
+                throw new Error('Patient not found');
+            }
+            const juniorDoctorPassword = jrDoctor.password;
+            if (juniorDoctorPassword === null) {
+                throw new Error('Patient password is null');
+            }
+            const validatedPass = yield bcrypt_1.default.compare(password, juniorDoctorPassword);
+            if (!validatedPass) {
+                throw new Error('Invalid password');
+            }
+            const accessToken = jsonwebtoken_1.default.sign({ id: jrDoctor.id }, SECRET_KEY);
+            res.status(200).send({ accessToken, jrDoctor });
+        }
+        catch (error) {
+            res.status(401).send({ error: '401', message: 'Username or password is incorrect' });
+        }
+    });
+}
+exports.loginJuniorDoctor = loginJuniorDoctor;
 function getJuniorDoctor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {

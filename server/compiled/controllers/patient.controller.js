@@ -12,11 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteAppointment = exports.createAppointment = exports.getLastCheckup = exports.deletePatient = exports.updatePatient = exports.getPatients = exports.logout = exports.getPatient = exports.createPatient = void 0;
+exports.loginPatient = exports.deleteAppointment = exports.createAppointment = exports.getLastCheckup = exports.deletePatient = exports.updatePatient = exports.getPatients = exports.logout = exports.getPatient = exports.createPatient = void 0;
 const patients_1 = require("../models/methods/patients");
+const Patient_1 = require("../models/schema/Patient");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const saltRounds = 10;
+const saltRounds = 12;
 const SECRET_KEY = process.env.SECRET_KEY || "default_secret_key";
 function createPatient(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -47,6 +48,31 @@ function createPatient(req, res) {
     });
 }
 exports.createPatient = createPatient;
+function loginPatient(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { email, password } = req.body;
+        try {
+            const patient = yield Patient_1.Patient.findOne({ where: { email: email } });
+            if (!patient) {
+                throw new Error('Patient not found');
+            }
+            const patientPassword = patient.password;
+            if (patientPassword === null) {
+                throw new Error('Patient password is null');
+            }
+            const validatedPass = yield bcrypt_1.default.compare(password, patientPassword);
+            if (!validatedPass) {
+                throw new Error('Invalid password');
+            }
+            const accessToken = jsonwebtoken_1.default.sign({ id: patient.id }, SECRET_KEY);
+            res.status(200).send({ accessToken, patient });
+        }
+        catch (error) {
+            res.status(401).send({ error: '401', message: 'Username or password is incorrect' });
+        }
+    });
+}
+exports.loginPatient = loginPatient;
 function getPatient(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
