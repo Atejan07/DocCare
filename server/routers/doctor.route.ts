@@ -15,9 +15,9 @@ const app = express();
 const doctorRouter = Router();
 
 
-doctorRouter.post('/doctor',doctorAuthMiddleware, createDoctor);
+doctorRouter.post('/doctor', createDoctor);
 doctorRouter.get('/doctor/:id', getDoctor);
-doctorRouter.get('/doctors', getDoctors);
+doctorRouter.get('/doctors', doctorAuthMiddleware, getDoctors);
 doctorRouter.post('/doctor/:id/medical-info', createMedicalInfo)
 doctorRouter.put('/doctor/summary', createPatientSummary);
 
