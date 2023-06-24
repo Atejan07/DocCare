@@ -7,8 +7,9 @@ import {
   createPatientSummaryModel,
 } from '../models/methods/doctors';
 import { TypeDoctor, TypeMedicalInfo, TypeAvailability } from '../types/types';
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
 const saltRounds = 10;
 const SECRET_KEY = process.env.SECRET_KEY;
 
