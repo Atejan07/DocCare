@@ -7,6 +7,7 @@ import {
   createPatientSummary,
   createMedicalInfo,
 } from "../controllers/doctor.controller";
+import { doctorAuthMiddleware } from '../middleware/authentication';
 
 
 
@@ -14,7 +15,7 @@ const app = express();
 const doctorRouter = Router();
 
 
-doctorRouter.post('/doctor', createDoctor);
+doctorRouter.post('/doctor',doctorAuthMiddleware, createDoctor);
 doctorRouter.get('/doctor/:id', getDoctor);
 doctorRouter.get('/doctors', getDoctors);
 doctorRouter.post('/doctor/:id/medical-info', createMedicalInfo)

@@ -14,11 +14,8 @@ import { Patient } from '../models/schema/Patient';
 const app = express();
 const patientRouter = Router();
 
-// patientRouter.post("/register", controller.create);
-// patientRouter.post("/login", controller.login);
-// patientRouter.get("/profile",  patientAuthMiddleware , controller.profile);
-// patientRouter.post("/logout", controller.logout);
-patientRouter.post('/patient', createPatient);
+
+patientRouter.post('/patient',patientAuthMiddleware, createPatient);
 patientRouter.get('/patient/:id', getPatient);
 patientRouter.get('/patients', getPatients);
 patientRouter.put('/patient/:id', updatePatient);
