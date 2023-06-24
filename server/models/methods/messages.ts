@@ -1,27 +1,24 @@
-// async function sendMessage(req, res) {}
-// async function getMessages(req, res) {}
-import { TypeMessage } from "../../types/types";
-import { Message } from "../schema/Message";
+import { TypeMessage } from '../../types/types';
+import db from '../schema/index';
 
-async function sendMessageModel(message:TypeMessage) {
+const MessageDB = db.Message;
+
+async function sendMessageModel(message: TypeMessage) {
   try {
-    const newMessage = await Message.create(message)
-    return newMessage
+    const newMessage = await MessageDB.create(message);
+    return newMessage;
   } catch (error) {
-    throw new Error()
+    throw new Error();
   }
 }
 
 async function getMessagesModel() {
   try {
-    const messages = await Message.findAll()
-    return messages
+    const messages = await MessageDB.findAll();
+    return messages;
   } catch (error) {
-    throw new Error()
+    throw new Error();
   }
 }
 
-export {
-  sendMessageModel,
-  getMessagesModel
-}
+export { sendMessageModel, getMessagesModel };

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.initModels = exports.MedicalInfo = exports.Condition = exports.Message = exports.JuniorDoctor = exports.Patient = exports.Appointment = exports.Doctor = void 0;
+exports.initModels = exports.MedicalInfo = exports.Message = exports.JuniorDoctor = exports.Patient = exports.Appointment = exports.Doctor = void 0;
 const Doctor_1 = require("./Doctor");
 Object.defineProperty(exports, "Doctor", { enumerable: true, get: function () { return Doctor_1.Doctor; } });
 const Appointment_1 = require("./Appointment");
@@ -11,8 +11,6 @@ const JuniorDoctor_1 = require("./JuniorDoctor");
 Object.defineProperty(exports, "JuniorDoctor", { enumerable: true, get: function () { return JuniorDoctor_1.JuniorDoctor; } });
 const Message_1 = require("./Message");
 Object.defineProperty(exports, "Message", { enumerable: true, get: function () { return Message_1.Message; } });
-const Condition_1 = require("./Condition");
-Object.defineProperty(exports, "Condition", { enumerable: true, get: function () { return Condition_1.Condition; } });
 const MedicalInfo_1 = require("./MedicalInfo");
 Object.defineProperty(exports, "MedicalInfo", { enumerable: true, get: function () { return MedicalInfo_1.MedicalInfo; } });
 function initModels(sequelize) {
@@ -21,43 +19,38 @@ function initModels(sequelize) {
     Patient_1.Patient.initModel(sequelize);
     JuniorDoctor_1.JuniorDoctor.initModel(sequelize);
     Message_1.Message.initModel(sequelize);
-    Condition_1.Condition.initModel(sequelize);
     MedicalInfo_1.MedicalInfo.initModel(sequelize);
     Doctor_1.Doctor.hasMany(Appointment_1.Appointment, {
         as: 'doctorAppointments',
-        foreignKey: 'doctor_id'
+        foreignKey: 'doctor_id',
     });
     Doctor_1.Doctor.hasMany(Patient_1.Patient, {
         as: 'patients',
-        foreignKey: 'doctor_id'
+        foreignKey: 'doctor_id',
     });
     Appointment_1.Appointment.belongsTo(Doctor_1.Doctor, {
         as: 'doctorAppointment',
-        foreignKey: 'doctor_appointment_id'
+        foreignKey: 'doctor_appointment_id',
     });
     Appointment_1.Appointment.belongsTo(Patient_1.Patient, {
         as: 'patientAppointment',
-        foreignKey: 'patient_appointment_id'
-    });
-    Patient_1.Patient.hasOne(Condition_1.Condition, {
-        as: 'condition',
-        foreignKey: 'patient_id'
+        foreignKey: 'patient_appointment_id',
     });
     Patient_1.Patient.hasMany(Message_1.Message, {
         as: 'patientMessages',
-        foreignKey: 'patient_id'
+        foreignKey: 'patient_id',
     });
     Patient_1.Patient.hasMany(Appointment_1.Appointment, {
         as: 'patientAppointments',
-        foreignKey: 'patient_id'
+        foreignKey: 'patient_id',
     });
     Patient_1.Patient.hasOne(MedicalInfo_1.MedicalInfo, {
         as: 'medicalInfo',
-        foreignKey: 'patient_id'
+        foreignKey: 'patient_id',
     });
     JuniorDoctor_1.JuniorDoctor.hasMany(Message_1.Message, {
         as: 'juniorMessages',
-        foreignKey: 'junior_doctor_id'
+        foreignKey: 'junior_doctor_id',
     });
     return {
         Doctor: Doctor_1.Doctor,
@@ -65,8 +58,7 @@ function initModels(sequelize) {
         Patient: Patient_1.Patient,
         JuniorDoctor: JuniorDoctor_1.JuniorDoctor,
         Message: Message_1.Message,
-        Condition: Condition_1.Condition,
-        MedicalInfo: MedicalInfo_1.MedicalInfo
+        MedicalInfo: MedicalInfo_1.MedicalInfo,
     };
 }
 exports.initModels = initModels;

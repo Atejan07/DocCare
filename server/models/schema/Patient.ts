@@ -22,11 +22,9 @@ import {
   Sequelize,
 } from 'sequelize';
 import type { Appointment } from './Appointment';
-import type { Condition } from './Condition';
 import type { MedicalInfo } from './MedicalInfo';
 import type { Message } from './Message';
 type PatientAssociations =
-  | 'condition'
   | 'patientMessages'
   | 'patientAppointments'
   | 'medicalInfo';
@@ -45,13 +43,16 @@ export class Patient extends Model<
   declare gender: 'Male' | 'Female' | null;
   declare juniorNotes: string | null;
   declare summary: string | null;
+  declare conditions: {
+    allergies: string | null;
+    bloodType: string | null;
+    medications: string | null;
+    surgicalHistory: string | null;
+    familyMedicalHistory: string | null;
+  } | null;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
-  // Patient hasOne Condition (as Condition)
-  declare condition?: NonAttribute<Condition>;
-  declare getCondition: HasOneGetAssociationMixin<Condition>;
-  declare setCondition: HasOneSetAssociationMixin<Condition, number>;
-  declare createCondition: HasOneCreateAssociationMixin<Condition>;
+
   // Patient hasMany Message (as PatientMessages)
   declare patientMessages?: NonAttribute<Message[]>;
   declare getPatientMessages: HasManyGetAssociationsMixin<Message>;
@@ -106,7 +107,6 @@ export class Patient extends Model<
   declare setMedicalInfo: HasOneSetAssociationMixin<MedicalInfo, number>;
   declare createMedicalInfo: HasOneCreateAssociationMixin<MedicalInfo>;
   declare static associations: {
-    condition: Association<Patient, Condition>;
     patientMessages: Association<Patient, Message>;
     patientAppointments: Association<Patient, Appointment>;
     medicalInfo: Association<Patient, MedicalInfo>;
@@ -146,6 +146,9 @@ export class Patient extends Model<
         },
         summary: {
           type: DataTypes.STRING,
+        },
+        conditions: {
+          type: DataTypes.JSON,
         },
         createdAt: {
           type: DataTypes.DATE,

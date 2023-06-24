@@ -8,14 +8,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteAppointmentModel = exports.createAppointmentModel = exports.deletePatientModel = exports.getLastCheckupModel = exports.updatePatientModel = exports.getPatientsModel = exports.getPatientModel = exports.createPatientModel = void 0;
-const Patient_1 = require("../schema/Patient");
-const Appointment_1 = require("../schema/Appointment");
+const index_1 = __importDefault(require("../schema/index"));
+const PatientDB = index_1.default.Patient;
+const AppointmentDB = index_1.default.Appointment;
 function createPatientModel(patient) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const newPatient = yield Patient_1.Patient.create(patient);
+            const newPatient = yield PatientDB.create(patient);
             return newPatient;
         }
         catch (error) {
@@ -27,7 +31,7 @@ exports.createPatientModel = createPatientModel;
 function getPatientModel(id) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const patient = yield Patient_1.Patient.findOne({ where: { id: id } });
+            const patient = yield PatientDB.findOne({ where: { id: id } });
             return patient;
         }
         catch (error) {
@@ -39,7 +43,7 @@ exports.getPatientModel = getPatientModel;
 function getPatientsModel() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const patients = yield Patient_1.Patient.findAll();
+            const patients = yield PatientDB.findAll();
             return patients;
         }
         catch (error) {
@@ -51,7 +55,7 @@ exports.getPatientsModel = getPatientsModel;
 function updatePatientModel(patientId, updatedPatient) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const patient = yield Patient_1.Patient.findOne({ where: { id: patientId } });
+            const patient = yield PatientDB.findOne({ where: { id: patientId } });
             patient === null || patient === void 0 ? void 0 : patient.set(updatedPatient);
             yield (patient === null || patient === void 0 ? void 0 : patient.save());
             return patient;
@@ -65,7 +69,7 @@ exports.updatePatientModel = updatePatientModel;
 function deletePatientModel(patientId) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const patient = yield Patient_1.Patient.findOne({ where: { id: patientId } });
+            const patient = yield PatientDB.findOne({ where: { id: patientId } });
             yield (patient === null || patient === void 0 ? void 0 : patient.destroy());
             return patient;
         }
@@ -81,7 +85,7 @@ function getLastCheckupModel(patientId) {
         try {
             //     patient -> appointments -> attended (true) -> get the last date
             // -> medical-info -> get the notes
-            const patient = yield Patient_1.Patient.findOne({ where: { id: patientId } });
+            const patient = yield PatientDB.findOne({ where: { id: patientId } });
             const appointmentsAttended = (_a = patient === null || patient === void 0 ? void 0 : patient.patientAppointments) === null || _a === void 0 ? void 0 : _a.filter((appointment) => appointment.attended);
             const doctorNote = (_b = patient === null || patient === void 0 ? void 0 : patient.medicalInfo) === null || _b === void 0 ? void 0 : _b.doctorNotes;
             const sortedAppointments = appointmentsAttended === null || appointmentsAttended === void 0 ? void 0 : appointmentsAttended.sort((a, b) => {
@@ -103,7 +107,7 @@ exports.getLastCheckupModel = getLastCheckupModel;
 function createAppointmentModel(appointment) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const newAppointment = yield Appointment_1.Appointment.create(appointment);
+            const newAppointment = yield AppointmentDB.create(appointment);
             return newAppointment;
         }
         catch (error) {
@@ -115,7 +119,7 @@ exports.createAppointmentModel = createAppointmentModel;
 function deleteAppointmentModel(appointmentId) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const appointment = yield Appointment_1.Appointment.findOne({
+            const appointment = yield AppointmentDB.findOne({
                 where: { id: appointmentId },
             });
             yield (appointment === null || appointment === void 0 ? void 0 : appointment.destroy());

@@ -9,12 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteAppointment = exports.createAppointment = exports.getLastCheckup = exports.deletePatient = exports.updatePatient = exports.getPatients = exports.getPatient = exports.createPatient = void 0;
+exports.deleteAppointment = exports.createAppointment = exports.getLastCheckup = exports.deletePatient = exports.updatePatient = exports.getPatients = exports.logout = exports.getPatient = exports.createPatient = void 0;
 const patients_1 = require("../models/methods/patients");
 function createPatient(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { name, email, password, phoneNumber, address, dateOfBirth, gender } = req.body;
+            const { name, email, password, phoneNumber, address, dateOfBirth, gender, conditions, } = req.body;
             const newPatient = {
                 name,
                 email,
@@ -23,6 +23,7 @@ function createPatient(req, res) {
                 address,
                 dateOfBirth,
                 gender,
+                conditions,
             };
             const createPatient = yield (0, patients_1.createPatientModel)(newPatient);
             res.status(201).json({
@@ -52,6 +53,10 @@ function getPatient(req, res) {
     });
 }
 exports.getPatient = getPatient;
+function logout(req, res) {
+    return __awaiter(this, void 0, void 0, function* () { });
+}
+exports.logout = logout;
 function getPatients(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {

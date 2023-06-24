@@ -8,14 +8,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createJuniorNoteModel = exports.getJuniorDoctorModel = exports.createJuniorDoctorModel = void 0;
-const JuniorDoctor_1 = require("../schema/JuniorDoctor");
-const Patient_1 = require("../schema/Patient");
+const index_1 = __importDefault(require("../schema/index"));
+const PatientDB = index_1.default.Patient;
+const JuniorDoctorDB = index_1.default.JuniorDoctor;
 function createJuniorDoctorModel(juniorDoctor) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const newJuniorDoctor = yield JuniorDoctor_1.JuniorDoctor.create(juniorDoctor);
+            const newJuniorDoctor = yield JuniorDoctorDB.create(juniorDoctor);
             return newJuniorDoctor;
         }
         catch (error) {
@@ -27,7 +31,7 @@ exports.createJuniorDoctorModel = createJuniorDoctorModel;
 function getJuniorDoctorModel(juniorId) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const juniorDoctor = yield JuniorDoctor_1.JuniorDoctor.findOne({
+            const juniorDoctor = yield JuniorDoctorDB.findOne({
                 where: { id: juniorId },
             });
             return juniorDoctor;
@@ -41,7 +45,7 @@ exports.getJuniorDoctorModel = getJuniorDoctorModel;
 function createJuniorNoteModel(juniorNote, patientId) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const patient = (yield Patient_1.Patient.findOne({
+            const patient = (yield PatientDB.findOne({
                 where: { id: patientId },
             }));
             patient.juniorNotes = juniorNote;

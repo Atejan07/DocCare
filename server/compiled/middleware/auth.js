@@ -12,30 +12,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getMessagesModel = exports.sendMessageModel = void 0;
-const index_1 = __importDefault(require("../schema/index"));
-const MessageDB = index_1.default.Message;
-function sendMessageModel(message) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const newMessage = yield MessageDB.create(message);
-            return newMessage;
-        }
-        catch (error) {
-            throw new Error();
-        }
-    });
-}
-exports.sendMessageModel = sendMessageModel;
-function getMessagesModel() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const messages = yield MessageDB.findAll();
-            return messages;
-        }
-        catch (error) {
-            throw new Error();
-        }
-    });
-}
-exports.getMessagesModel = getMessagesModel;
+exports.patientAuthMiddleware = void 0;
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const Patient_1 = require("../models/schema/Patient");
+const SECRET_KEY = process.env.SECRET_KEY;
+const patientAuthMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const authHeaders = req.headers['authorization'];
+    if (!authHeaders)
+        return res.sendStatus(403);
+    const token = authHeaders.split(' ')[1];
+    try {
+        const { id } = jsonwebtoken_1.default.verify(token, SECRET_KEY);
+        const patient = yield Patient_1.Patient.findOne({ where: { id: id } });
+        if (!patient)
+            return res.sendStatus(401);
+        req.patient = patient;
+        next();
+    }
+    catch (error) {
+        res.sendStatus(401);
+    }
+});
+exports.patientAuthMiddleware = patientAuthMiddleware;
+//.populate("categories")

@@ -25,7 +25,7 @@ export interface TypeDoctor {
   licenseNumber: string;
   gender: 'Male' | 'Female';
   about: string;
-  availability: TypeAvailability;
+  availability?: TypeAvailability;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -50,17 +50,6 @@ export interface TypeAppointment {
     | `Digestive system disorders, gastrointestinal cancers, irritable bowel syndrome, Crohn's disease`
     | 'Neurological disorders, migraines, epilepsy, stroke, multiple sclerosis'
     | 'Cancer, various types and stages, chemotherapy, radiation therapy, palliative care';
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
-export interface TypeCondition {
-  id?: string;
-  allergies: string;
-  bloodType: string;
-  medications: string;
-  surgicalHistory: string;
-  familyMedicalHistory: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -106,6 +95,13 @@ export interface TypePatient {
   gender: 'Male' | 'Female' | null;
   juniorNotes?: string;
   summary?: string;
+  conditions: {
+    allergies: string;
+    bloodType: string;
+    medications: string;
+    surgicalHistory: string;
+    familyMedicalHistory: string;
+  };
   createdAt?: Date;
   updatedAt?: Date;
 }

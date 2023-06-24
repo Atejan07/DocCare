@@ -17,12 +17,12 @@ const associations_1 = require("./associations");
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const dbName = 'DocCare';
-const db = new sequelize_1.Sequelize(dbName, 'username', `${process.env.MYSQL_PASSWORD}`, {
+const db = new sequelize_1.Sequelize(dbName, 'root', `${process.env.MYSQL_PASSWORD}`, {
     host: 'localhost',
-    port: 5432,
+    port: 3306,
     dialect: 'mysql',
 });
-const { Message, Appointment, Condition, Doctor, JuniorDoctor, MedicalInfo, Patient } = (0, associations_1.initModels)(db);
+const { Message, Appointment, Doctor, JuniorDoctor, MedicalInfo, Patient } = (0, associations_1.initModels)(db);
 (function authenticate() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -35,4 +35,12 @@ const { Message, Appointment, Condition, Doctor, JuniorDoctor, MedicalInfo, Pati
         }
     });
 })();
-exports.default = { db, Message, Appointment, Condition, Doctor, JuniorDoctor, MedicalInfo, Patient };
+exports.default = {
+    db,
+    Message,
+    Appointment,
+    Doctor,
+    JuniorDoctor,
+    MedicalInfo,
+    Patient,
+};

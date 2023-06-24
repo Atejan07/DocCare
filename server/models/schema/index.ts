@@ -5,18 +5,14 @@ dotenv.config();
 
 const dbName = 'DocCare';
 
-const db = new Sequelize(
-  dbName,
-  'username',
-  `${process.env.MYSQL_PASSWORD}`,
-  {
-    host: 'localhost',
-    port: 5432,
-    dialect: 'mysql',
-  }
-);
+const db = new Sequelize(dbName, 'root', `${process.env.MYSQL_PASSWORD}`, {
+  host: 'localhost',
+  port: 3306,
+  dialect: 'mysql',
+});
 
-const { Message, Appointment, Condition, Doctor, JuniorDoctor, MedicalInfo, Patient } = initModels(db);
+const { Message, Appointment, Doctor, JuniorDoctor, MedicalInfo, Patient } =
+  initModels(db);
 
 (async function authenticate() {
   try {
@@ -28,4 +24,12 @@ const { Message, Appointment, Condition, Doctor, JuniorDoctor, MedicalInfo, Pati
   }
 })();
 
-export default { db, Message, Appointment, Condition, Doctor, JuniorDoctor, MedicalInfo, Patient };
+export default {
+  db,
+  Message,
+  Appointment,
+  Doctor,
+  JuniorDoctor,
+  MedicalInfo,
+  Patient,
+};

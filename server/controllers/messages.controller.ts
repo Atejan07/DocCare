@@ -1,8 +1,5 @@
 import { Express, Request, Response } from 'express';
-import {
-  sendMessageModel,
-  getMessagesModel
-} from '../models/methods/messages';
+import { sendMessageModel, getMessagesModel } from '../models/methods/messages';
 
 async function sendMessage(req: Request, res: Response) {
   try {

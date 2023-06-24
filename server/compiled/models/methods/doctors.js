@@ -8,15 +8,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createPatientSummaryModel = exports.createMedicalInfoModel = exports.getDoctorsModel = exports.getDoctorModel = exports.createDoctorModel = void 0;
-const Doctor_1 = require("../schema/Doctor");
-const Patient_1 = require("../schema/Patient");
-const MedicalInfo_1 = require("../schema/MedicalInfo");
+const index_1 = __importDefault(require("../schema/index"));
+const DoctorDB = index_1.default.Doctor;
+const PatientDB = index_1.default.Patient;
+const MedicalInfoDB = index_1.default.MedicalInfo;
 function createDoctorModel(doctor) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const newDoctor = yield Doctor_1.Doctor.create(doctor);
+            const newDoctor = yield DoctorDB.create(doctor);
             return newDoctor;
         }
         catch (error) {
@@ -28,7 +32,7 @@ exports.createDoctorModel = createDoctorModel;
 function getDoctorModel(id) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const doctor = yield Doctor_1.Doctor.findOne({ where: { id: id } });
+            const doctor = yield DoctorDB.findOne({ where: { id: id } });
             return doctor;
         }
         catch (error) {
@@ -40,7 +44,7 @@ exports.getDoctorModel = getDoctorModel;
 function getDoctorsModel() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const doctors = yield Doctor_1.Doctor.findAll();
+            const doctors = yield DoctorDB.findAll();
             return doctors;
         }
         catch (error) {
@@ -52,10 +56,10 @@ exports.getDoctorsModel = getDoctorsModel;
 function createMedicalInfoModel(newMedicalInfo, patientId) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const patient = (yield Patient_1.Patient.findOne({
+            const patient = (yield PatientDB.findOne({
                 where: { id: patientId },
             }));
-            const medicalInfo = yield MedicalInfo_1.MedicalInfo.create(newMedicalInfo);
+            const medicalInfo = yield MedicalInfoDB.create(newMedicalInfo);
             patient.medicalInfo = medicalInfo;
             patient.save();
             return patient;
@@ -69,7 +73,7 @@ exports.createMedicalInfoModel = createMedicalInfoModel;
 function createPatientSummaryModel(newPatientSummary, patientId) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const patient = (yield Patient_1.Patient.findOne({
+            const patient = (yield PatientDB.findOne({
                 where: { id: patientId },
             }));
             patient.summary = newPatientSummary;

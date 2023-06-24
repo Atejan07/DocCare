@@ -1,4 +1,4 @@
-import { Express, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import {
   createPatientModel,
   getPatientModel,
@@ -13,8 +13,16 @@ import { TypeAppointment } from '../types/types';
 
 async function createPatient(req: Request, res: Response) {
   try {
-    const { name, email, password, phoneNumber, address, dateOfBirth, gender } =
-      req.body;
+    const {
+      name,
+      email,
+      password,
+      phoneNumber,
+      address,
+      dateOfBirth,
+      gender,
+      conditions,
+    } = req.body;
     const newPatient = {
       name,
       email,
@@ -23,6 +31,7 @@ async function createPatient(req: Request, res: Response) {
       address,
       dateOfBirth,
       gender,
+      conditions,
     };
     const createPatient = await createPatientModel(newPatient);
     res.status(201).json({
@@ -45,6 +54,8 @@ async function getPatient(req: Request, res: Response) {
     res.status(400).json({ error: 'Failed to get the patient account' });
   }
 }
+
+async function logout(req: Request, res: Response) {}
 async function getPatients(req: Request, res: Response) {
   try {
     const patients = await getPatientsModel();
@@ -133,6 +144,7 @@ async function deleteAppointment(req: Request, res: Response) {
 export {
   createPatient,
   getPatient,
+  logout,
   getPatients,
   updatePatient,
   deletePatient,
