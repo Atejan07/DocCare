@@ -19,7 +19,7 @@ const Doctor_1 = require("../models/schema/Doctor");
 const JuniorDoctor_1 = require("../models/schema/JuniorDoctor");
 const SECRET_KEY = process.env.SECRET_KEY;
 const patientAuthMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const authHeaders = req.headers['authorization'];
+    const authHeaders = req.headers["authorization"];
     if (!authHeaders)
         return res.sendStatus(403);
     const token = authHeaders.split(' ')[1];

@@ -19,7 +19,7 @@ const patientAuthMiddleware = async (
   res: Response,
   next: NextFunction
 ) => {
-  const authHeaders = req.headers['authorization'];
+  const authHeaders = req.headers["authorization"];
   if (!authHeaders) return res.sendStatus(403);
   const token = authHeaders.split(' ')[1];
 

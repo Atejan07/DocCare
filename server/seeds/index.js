@@ -19,11 +19,16 @@ const dotenv = require('dotenv')
 dotenv.config();
 
 const dbName = 'DocCare';
-const db = new Sequelize(dbName, 'root', 'Codeworks', {
-  host: 'localhost',
-  port: 3306,
-  dialect: 'mysql',
-});
+const db = new Sequelize(
+  dbName,
+  'root',
+  '',
+  {
+    host: 'localhost',
+    port: 3306,
+    dialect: 'mysql',
+  }
+);
 
 
 const { Message, Appointment, Condition, Doctor, JuniorDoctor, MedicalInfo, Patient } = initModels(db);

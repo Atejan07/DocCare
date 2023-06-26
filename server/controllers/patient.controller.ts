@@ -10,7 +10,8 @@ import {
   deleteAppointmentModel,
 } from '../models/methods/patients';
 import { TypeAppointment } from '../types/types';
-import { Patient } from '../models/schema/Patient'
+import db from '.././models/schema/index';
+const PatientDB = db.Patient;
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -54,34 +55,26 @@ async function createPatient(req: Request, res: Response) {
 }
 
 async function loginPatient(req: Request, res: Response) {
-  const { email, password } = req.body;
-  try {
-    const patient = await Patient.findOne({ where: { email: email } });
-    if (!patient) {
-      throw new Error('Patient not found');
-    }
-    const patientPassword = patient.password;
-    if (patientPassword === null) {
-      throw new Error('Patient password is null');
-    }
-    const validatedPass = await bcrypt.compare(password, patientPassword);
-    if (!validatedPass) {
-      throw new Error('Invalid password');
-    }
-    const accessToken = jwt.sign({ id: patient.id }, SECRET_KEY);
-    res.status(200).send({ accessToken, patient });
-  } catch (error) {
-    res.status(401).send({ error: '401', message: 'Username or password is incorrect' });
-  }
+const { email, password } = req.body;
+try {
+const patient = await PatientDB.findOne({ where: { email: email } });
+if (!patient) {
+throw new Error('Patient not found');
 }
-
-
-
-
-
-
-
-
+const patientPassword = patient.password;
+if (!patientPassword) {
+throw new Error('Patient password is null');
+}
+const validatedPass = await bcrypt.compare(password, patientPassword);
+if (!validatedPass) {
+throw new Error('Invalid password');
+}
+const accessToken = jwt.sign({ id: patient.id }, SECRET_KEY);
+res.status(200).json({ accessToken, patient });
+} catch (error) {
+res.status(401).json({ error: 'Username or password is incorrect' });
+}
+}
 
 
 

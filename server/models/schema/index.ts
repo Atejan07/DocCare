@@ -7,8 +7,8 @@ const dbName = 'DocCare';
 
 const db = new Sequelize(
   dbName,
-  `${process.env.MYSQL_USERNAME}`,
-  `${process.env.MYSQL_PASSWORD}`,
+  'root',
+  '',
   {
     host: 'localhost',
     port: 3306,
