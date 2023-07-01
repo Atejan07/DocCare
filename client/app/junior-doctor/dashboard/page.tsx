@@ -12,11 +12,13 @@ import { AppDispatch } from '@/redux/store';
 import { displayChat } from '@/redux/features/display-chat';
 import { TUser } from '@/types/types';
 import JuniorDoctorMessages from './messages';
-
-
+import { setAllPatient } from '@/redux/features/all-patients-slice';
+import { io } from "socket.io-client";
+const socket = io("ws://localhost:3001");
 
 export default function JuniorDoctorDashBoard() {
   const [allPatients, setAllPatients] = useState<TypePatient[]>([]);
+  const [logged, setLogged] = useState<Boolean>(true)
   const dispatch = useDispatch<AppDispatch>();
   const displayChat = useAppSelector((state) => state.toggleDisplayChat.value)
   const currentJunior = useAppSelector(
@@ -26,11 +28,8 @@ export default function JuniorDoctorDashBoard() {
   async function getPatients(token: string) {
     const patients = await apiService.getAllPatients(token);
     setAllPatients(patients as TypePatient[]);
+    dispatch(setAllPatient(patients as TypePatient[]))
   }
-
-  // useEffect(()=>{
-  // console.log(displayChat, 'hereeeeee')
-  // })
 
   useEffect(() => {
     const token =
