@@ -22,8 +22,8 @@ const dbName = 'DocCare';
 
 const db = new Sequelize(
   dbName,
-  'root',
-  'Codeworks',
+  `${process.env.MYSQL_USERNAME}`,
+  `${process.env.MYSQL_PASSWORD}`,
   {
     host: 'localhost',
     port: 3306,
