@@ -7,7 +7,7 @@ import 'cypress-localstorage-commands';
 describe('<Login>', () => {
   beforeEach(() => {
     cy.mount(
-      <MockRouter asPath='/patient/login'>
+      <MockRouter asPath='/doctor/login'>
         <Provider store={store}>
           <Login user={'doctor'} />
         </Provider>
@@ -32,7 +32,7 @@ describe('<Login>', () => {
     cy.get('form')
       .submit()
       .then(() => {
-        cy.request('POST', 'localhost:3001/patient/login', {
+        cy.request('POST', 'localhost:3001/doctor/login', {
           email: validEmail,
           password: validPassword,
         }).then((res) => {
