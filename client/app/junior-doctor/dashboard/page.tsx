@@ -18,10 +18,13 @@ import LoadingSpinner from '@/app/(components)/loading';
 const socket = io('ws://localhost:3001');
 
 export default function JuniorDoctorDashBoard() {
+
   const [allPatients, setAllPatients] = useState<TypePatient[]>([]);
   const [onlinePatientsId, setOnlinePatientsId] = useState<string[]>([]);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [loaded, setLoaded] = useState<Boolean>(false);
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : 0
+  );
   const [logged, setLogged] = useState<Boolean>(true);
   const dispatch = useDispatch<AppDispatch>();
   const displaySection = useAppSelector((state) => state.toggleDisplaySection.value);
@@ -30,20 +33,6 @@ export default function JuniorDoctorDashBoard() {
   const currentJunior = useAppSelector(
     (state) => state.currentJuniorReducer.value
   );
-
- 
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [displaySection]);
 
   async function getPatients(token: string) {
     const patients = (await apiService.getAllPatients(token)) as TypePatient[];
@@ -56,6 +45,18 @@ export default function JuniorDoctorDashBoard() {
     setOnlinePatientsId(ids as string[]);
     setLoaded(true);
   }
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(typeof window !== 'undefined' ? window.innerWidth : 0);
+    };
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', handleResize);
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }
+  }, [displaySection]);
 
   useEffect(() => {
     socketConnect();

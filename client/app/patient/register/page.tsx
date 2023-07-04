@@ -224,6 +224,7 @@ export default function Register() {
             <input
               type='file'
               accept='image/*'
+              id='profilePicture'
               onChange={handleImageChange}
               required
             />
@@ -286,6 +287,7 @@ export default function Register() {
           <button
             className='bg-tertiary hover:bg-tertiary-dark text-white font-bold py-2 px-4 m-2 rounded'
             type='submit'
+            id='submit-register'
           >
             Register
           </button>

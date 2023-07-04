@@ -55,7 +55,7 @@ async function fetchData(token: string, path: string) {
     .catch((error) => console.log(error));
 }
 
-async function register(user: TUser, type: string): Promise<TypeRegister> {
+async function register(user: TUser, type: string) {
   let path;
   if (type == 'doctor') {
     path = '/doctor';
@@ -74,6 +74,9 @@ async function register(user: TUser, type: string): Promise<TypeRegister> {
     .then((res: AxiosResponse<TypeRegister>) => {
       console.log(res.data);
       return res.data;
+    }).catch((error) => {
+      console.log(error)
+      return error
     });
 }
 

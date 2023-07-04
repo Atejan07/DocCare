@@ -29,11 +29,11 @@ function toFirstLetterUpperCase(text: string) {
 export default function AuthNavbar(props: Props) {
   const isAuth = useAppSelector((state) => state.authReducer.value.isAuth);
   const dispatch = useDispatch<AppDispatch>();
-  useEffect(() => {
-    apiService.getAllMessages().then((res) => {
-      dispatch(setAllMessages(res))
-    })
-  }, [])
+  // useEffect(() => {
+  //   apiService.getAllMessages().then((res) => {
+  //     dispatch(setAllMessages(res))
+  //   })
+  // }, [])
 
   async function getCurrentUser() {
     const token = localStorage.getItem('accessToken');
@@ -51,6 +51,9 @@ export default function AuthNavbar(props: Props) {
           const juniorDoctor = user;
           dispatch(setCurrentJunior(juniorDoctor.result));
         }
+        apiService.getAllMessages().then((res) => {
+          dispatch(setAllMessages(res))
+        })
         dispatch(login(userType as string));
       } catch (error) {
         console.log(error);
