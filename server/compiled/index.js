@@ -25,7 +25,7 @@ const logger_1 = __importDefault(require("./logger"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const corsConfig = {
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "http://localhost:8080"],
     credentials: true,
 };
 const app = (0, express_1.default)();
