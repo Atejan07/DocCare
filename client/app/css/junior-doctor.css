@@ -111,6 +111,7 @@
 
 .chat .messages-chat .text {
   margin: 0 2rem;
+  margin-left: 1rem;
   background-color: #F5ECF7;
   padding: 1rem;
   border-radius: 0.75rem;
@@ -175,3 +176,6 @@ grid-column: col-start 1 / span 6;
   grid-column: col-start 1 / span 6;
 }
 
+.back-button{
+margin-left: 1rem;
+}

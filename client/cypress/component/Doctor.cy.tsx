@@ -15,6 +15,12 @@ describe("<Doctor>", () => {
       </MockRouter>
     );
   });
+  it("Logs in successfully", () => {
+    cy.visit("/login"); 
+    cy.get('input[name="username"]').type("your_username"); 
+    cy.get('input[name="password"]').type("your_password"); 
+    cy.get('button[type="submit"]').click(); 
+  });
   it("Renders the homepage", () => {
     cy.get('main').should('be.visible');
   });

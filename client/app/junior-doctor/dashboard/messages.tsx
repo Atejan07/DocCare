@@ -77,7 +77,7 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
   return (
     <section className="chat">
       <div className="header-chat">
-        <button onClick={hideChat}><LeftCircleOutlined /></button>
+        <button onClick={hideChat} className="back-button"><LeftCircleOutlined style={{ fontSize: '1.4rem' }}/></button>
         <p className="name">{selectedPatient.name}</p>
       </div>
       <div className="messages-chat">
