@@ -8,11 +8,11 @@ export default function Footer() {
         <div className='lg:flex lg:items-start lg:gap-8'>
           <div className='text-teal-600'>
             <Image
-              className='block h-8 w-auto lg:block'
+              className='block lg:block mr-15'
               src='/logo-dark.png'
               alt='Your Company'
-              height={150}
-              width={150}
+              height={160}
+              width={160}
             />
           </div>
 
@@ -26,7 +26,7 @@ export default function Footer() {
                     href='#'
                     className='text-sky-50 transition hover:opacity-75'
                   >
-                    Service????
+                 Consultation
                   </Link>
                 </li>
 
@@ -35,7 +35,7 @@ export default function Footer() {
                     href='#'
                     className='text-sky-50 transition hover:opacity-75'
                   >
-                    Service????
+                   Message with Junior Doctor
                   </Link>
                 </li>
 
@@ -44,25 +44,7 @@ export default function Footer() {
                     href='#'
                     className='text-sky-50 transition hover:opacity-75'
                   >
-                    Service????
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    href='#'
-                    className='text-sky-50 transition hover:opacity-75'
-                  >
-                    Service????
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    href='#'
-                    className='text-sky-50 transition hover:opacity-75'
-                  >
-                    Service????
+                    Schedule an Appointment with a Doctor
                   </Link>
                 </li>
               </ul>

@@ -10,7 +10,7 @@ export default function Users() {
         <h2 className='font-bold text-2xl text-primary mb-4'>I am a patient</h2>
         <Image
           className=''
-          src='/patient.png'
+          src='/patient.jpg'
           alt='Patient'
           height={300}
           width={300}
@@ -29,7 +29,7 @@ export default function Users() {
         </h2>
         <Image
           className=''
-          src='/junior.png'
+          src='/junior.jpg'
           alt='Junior Doctor'
           height={300}
           width={300}
@@ -46,10 +46,10 @@ export default function Users() {
         <h2 className='font-bold text-2xl text-primary mb-4'>I am a Doctor</h2>
         <Image
           className=''
-          src='/doctor.png'
+          src='/doctor.avif'
           alt='Doctor'
-          height={300}
-          width={300}
+          height={200}
+          width={200}
         />
         <Link
           href='/doctor/login'
