@@ -15,7 +15,7 @@ import { AppDispatch } from '@/redux/store';
 import { useDispatch } from 'react-redux';
 import { setAvailableSpecialist } from '@/redux/features/available-doctors-slice';
 import Image from 'next/image';
-import { futureDate } from '@/app/helper';
+import { futureDate, getAccessToken } from '@/app/helper';
 
 const initialState = {
   date: '',
@@ -72,7 +72,7 @@ export default function PatientAppointment() {
   }
 
   async function getAllTheDoctors() {
-    const token = localStorage.getItem('accessToken') as string;
+    const token = getAccessToken() as string;
     const allTheDoctors = await apiService
       .getAllDoctors(token)
       .then((doctors) => {

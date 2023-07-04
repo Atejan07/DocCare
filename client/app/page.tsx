@@ -2,12 +2,13 @@
 'use client';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { getUserType } from './helper';
 
 export default function Main() {
   const router = useRouter();
 
   useEffect(() => {
-    const userType = localStorage.getItem('userType') as string;
+    const userType = getUserType() as string;
     if (userType) {
       router.push(`/${userType}/dashboard`);
     } else {

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
-import "../../css/junior-doctor.css";
+import '../../css/junior-doctor.css';
 import apiService from '@/services/APIservices';
 import { useEffect, useState } from 'react';
 import { TypePatient } from '../../../../server/types/types';
@@ -15,10 +15,10 @@ import { TUser } from '@/types/types';
 import JuniorDoctorMessages from './messages';
 import { io } from 'socket.io-client';
 import LoadingSpinner from '@/app/(components)/loading';
+import { getAccessToken } from '@/app/helper';
 const socket = io('ws://localhost:3001');
 
 export default function JuniorDoctorDashBoard() {
-
   const [allPatients, setAllPatients] = useState<TypePatient[]>([]);
   const [onlinePatientsId, setOnlinePatientsId] = useState<string[]>([]);
   const [loaded, setLoaded] = useState<Boolean>(false);
@@ -27,7 +27,9 @@ export default function JuniorDoctorDashBoard() {
   );
   const [logged, setLogged] = useState<Boolean>(true);
   const dispatch = useDispatch<AppDispatch>();
-  const displaySection = useAppSelector((state) => state.toggleDisplaySection.value);
+  const displaySection = useAppSelector(
+    (state) => state.toggleDisplaySection.value
+  );
 
   const displayChat = useAppSelector((state) => state.toggleDisplayChat.value);
   const currentJunior = useAppSelector(
@@ -68,9 +70,7 @@ export default function JuniorDoctorDashBoard() {
   }
 
   useEffect(() => {
-    const token =
-      typeof window !== 'undefined' &&
-      (localStorage.getItem('accessToken') as string);
+    const token = typeof window !== 'undefined' && (getAccessToken() as string);
     const userType =
       typeof window !== 'undefined' &&
       (window.localStorage.getItem('userType') as string);
@@ -85,27 +85,34 @@ export default function JuniorDoctorDashBoard() {
   });
   const isMobile = windowWidth < 500;
 
-
   return (
     <div>
-    <AuthNavbar user={'junior-doctor'} auth={'login'} />
-    <div className={isMobile ? 'messages-container-juniorDoctor-no-margin' : 'messages-container-juniorDoctor'}>
-      {loaded ? (
-        <>
-        {isMobile && displaySection && <AllPatients allPatients={allPatients} />}
-        {isMobile && displayChat && (
-            <JuniorDoctorMessages currentJunior={currentJunior as TUser} />
-          )}
+      <AuthNavbar user={'junior-doctor'} auth={'login'} />
+      <div
+        className={
+          isMobile
+            ? 'messages-container-juniorDoctor-no-margin'
+            : 'messages-container-juniorDoctor'
+        }
+      >
+        {loaded ? (
+          <>
+            {isMobile && displaySection && (
+              <AllPatients allPatients={allPatients} />
+            )}
+            {isMobile && displayChat && (
+              <JuniorDoctorMessages currentJunior={currentJunior as TUser} />
+            )}
 
-          {!isMobile && <AllPatients allPatients={allPatients} /> }
-          {!isMobile && displayChat && (
-            <JuniorDoctorMessages currentJunior={currentJunior as TUser} />
-          )}
-        </>
-      ) : (
-        <LoadingSpinner />
-      )}
+            {!isMobile && <AllPatients allPatients={allPatients} />}
+            {!isMobile && displayChat && (
+              <JuniorDoctorMessages currentJunior={currentJunior as TUser} />
+            )}
+          </>
+        ) : (
+          <LoadingSpinner />
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
 }

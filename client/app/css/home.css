@@ -10,7 +10,7 @@
     display: flex;
     /* align-items: center; */
   }
-  .grid-users{
+  .grid-users {
     background-color: white;
   }
 }
@@ -51,7 +51,7 @@
   .home-text {
     padding: 2rem;
   }
-  .grid-users{
+  .grid-users {
     background-color: white;
   }
 }
@@ -78,13 +78,13 @@
   }
 }
 
-
 .users {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 2rem;
+  height: 90vh;
 }
 
 .users .users-left {
@@ -103,7 +103,6 @@
   align-self: center;
 }
 
-
 .about-info {
   display: flex;
   justify-content: center;
@@ -113,13 +112,12 @@
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  margin: 1rem 0;
   height: auto;
-  margin: 1rem 0;
+  margin: 4rem 2rem;
   width: 60%;
   border-radius: 10px;
   background-color: #a266b5;
-  padding: 1rem;
+  padding: 2rem;
   box-shadow: 0 2px 5px rgba(101, 100, 100, 0.6);
 }
 
@@ -133,13 +131,20 @@
 .about-doccare p {
   color: white;
   margin: 0.7rem;
-  width: 100%;
+  text-align: justify;
   font-size: 1.2rem;
   flex-shrink: 1;
 }
 
-@media (max-width: 500px) {
-  .grid-users{
+@media (max-width: 600px) {
+  .grid-users {
     background-color: white;
+  }
+  .about-doccare {
+    width: 90%;
+  }
+
+  .users {
+    height: auto;
   }
 }

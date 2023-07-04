@@ -23,35 +23,35 @@
   flex-direction: column;
 }
 
- .discussion {
+.discussion {
   width: 100%;
   height: 7rem;
-  background-color: #FAFAFA;
-  border-bottom: solid 1px #E0E0E0;
+  background-color: #fafafa;
+  border-bottom: solid 1px #e0e0e0;
   display: flex;
   align-items: center;
   flex-direction: column;
 }
 
- .search {
+.search {
   display: flex;
   align-items: center;
   justify-content: center;
   color: #939090;
 }
 
- .search .searchbar {
+.search .searchbar {
   height: 2.5rem;
-  background-color: #FFF;
+  background-color: #fff;
   padding: 0 1.25rem;
   border-radius: 3rem;
-  border: 0.1rem solid #EEEEEE;
+  border: 0.1rem solid #eeeeee;
   display: flex;
   align-items: center;
   cursor: pointer;
 }
 
- .search .searchbar input {
+.search .searchbar input {
   height: 2rem;
   width: 10vw;
   border: none;
@@ -61,7 +61,7 @@
   width: 100%;
 }
 
- .discussion .name {
+.discussion .name {
   margin: 0 0 0 1.25rem;
   font-size: 1.2rem;
   color: #515151;
@@ -71,21 +71,21 @@
   font-size: 1rem;
 }
 
-
 .chat {
   z-index: 2;
   padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #FFF;
-  box-shadow: 0 1.43vh 2.86vh rgba(0, 0, 0, 0.19), 0 0.86vh 0.86vh rgba(0, 0, 0, 0.23);
+  background-color: #fff;
+  box-shadow: 0 1.43vh 2.86vh rgba(0, 0, 0, 0.19),
+    0 0.86vh 0.86vh rgba(0, 0, 0, 0.23);
   height: 100vh;
   grid-column: col-start 2 / span 6;
 }
 
 .header-chat {
-  background-color: #FFF;
+  background-color: #fff;
   height: 10vh;
   box-shadow: 0px 0.21vh 0.14vh rgba(0, 0, 0, 0.1);
   display: flex;
@@ -117,7 +117,6 @@
   border-radius: 0.75rem;
 }
 
-
 .text-only {
   margin-left: 2.5rem;
 }
@@ -129,9 +128,8 @@
 }
 
 .response .text {
-  background-color: #F5ECF7;
+  background-color: #f5ecf7;
 }
-
 
 .footer-chat {
   width: calc(100% - 3rem);
@@ -139,8 +137,7 @@
   display: flex;
   align-items: center;
   background-color: transparent;
-  border-top: 2px solid #EEE;
-
+  border-top: 2px solid #eee;
 }
 
 .write-message {
@@ -151,7 +148,6 @@
   margin-left: 5vw;
   padding: 10px;
 }
-
 
 .send-button {
   display: flex;
@@ -168,8 +164,8 @@
   justify-content: space-between;
 }
 
-.messages-container-juniorDoctor-no-margin{
-grid-column: col-start 1 / span 6;
+.messages-container-juniorDoctor-no-margin {
+  grid-column: col-start 1 / span 6;
 }
 
 .discussions-no-margin {

@@ -13,6 +13,7 @@ import { login } from '@/redux/features/auth-slice';
 import { setCurrentDoctor } from '@/redux/features/doctor-slice';
 import { setCurrentJunior } from '@/redux/features/junior-slice';
 import { setAllMessages } from '@/redux/features/messages-slice';
+import { getAccessToken, getUserType } from '../helper';
 
 interface Props {
   user: string;
@@ -36,11 +37,14 @@ export default function AuthNavbar(props: Props) {
   // }, [])
 
   async function getCurrentUser() {
-    const token = localStorage.getItem('accessToken');
-    const userType = localStorage.getItem('userType') as string;
+    // const token = localStorage.getItem('accessToken');
+    const token = getAccessToken();
+    // const userType = localStorage.getItem('userType') as string;
+    const userType = getUserType() as string;
     if (token) {
       try {
         const user = await apiService.getUser(token, userType);
+        console.log(user, 'before');
         if (userType === 'patient') {
           const patient = user;
           dispatch(setCurrentPatient(patient.result));
@@ -49,11 +53,12 @@ export default function AuthNavbar(props: Props) {
           dispatch(setCurrentDoctor(doctor.result));
         } else if (userType === 'junior-doctor') {
           const juniorDoctor = user;
+          console.log(juniorDoctor, 'after');
           dispatch(setCurrentJunior(juniorDoctor.result));
         }
         apiService.getAllMessages().then((res) => {
-          dispatch(setAllMessages(res))
-        })
+          dispatch(setAllMessages(res));
+        });
         dispatch(login(userType as string));
       } catch (error) {
         console.log(error);

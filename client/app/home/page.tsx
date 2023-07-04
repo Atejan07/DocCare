@@ -4,18 +4,19 @@ import Image from 'next/image';
 import Footer from '../(components)/footer';
 import Navbar from './navbar';
 import Users from './users';
-import About from './Info-about'
+import About from './info-about';
 import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import '../css/home.css';
 import '../css/globals.css';
+import { getUserType } from '../helper';
 
 export default function Home() {
   const router = useRouter();
   const usersRef = useRef<HTMLElement | null>(null);
   const executeScroll = () => usersRef?.current?.scrollIntoView();
   useEffect(() => {
-    const userType = localStorage.getItem('userType') as string;
+    const userType = getUserType() as string;
     if (userType) {
       router.push(`/${userType}/dashboard`);
     } else {
@@ -25,7 +26,7 @@ export default function Home() {
 
   return (
     <div>
-      <main className='flex min-h-screen flex-col box-border'>
+      <div className='flex min-h-screen flex-col box-border'>
         <div className='grid-home'>
           <div className='home-left'>
             <div className='flex flex-col items-center justify-center'>
@@ -66,14 +67,14 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <main ref={usersRef}>
+        <section ref={usersRef}>
           {' '}
           <Users />
-        </main>
+        </section>
         <div className='about-info'>
-          <About/>
+          <About />
         </div>
-      </main>
+      </div>
       <Footer />
     </div>
   );

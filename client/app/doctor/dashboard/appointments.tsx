@@ -12,7 +12,7 @@ import {
 import apiService from '@/services/APIservices';
 import { message } from 'antd';
 import { useEffect, useState } from 'react';
-import { formatDate, formatTime } from '@/app/helper';
+import { formatDate, formatTime, getAccessToken } from '@/app/helper';
 
 export default function Appointments() {
   const router = useRouter();
@@ -25,7 +25,7 @@ export default function Appointments() {
   function handleAttendAppointment(clickedId: string) {
     console.log('clicked');
     console.log(clickedId);
-    const token = localStorage.getItem('accessToken') as string;
+    const token = getAccessToken() as string;
     return appointments?.map(async (appointment) => {
       if (appointment.id === clickedId) {
         console.log(appointment.id);
@@ -70,7 +70,10 @@ export default function Appointments() {
       <div className='dashboard-container doctor-patients-container'>
         <h3>My appointments</h3>
         {appointments
-          ?.filter((appointment) => new Date(`${appointment.date}`).valueOf() > Date.now().valueOf())
+          ?.filter(
+            (appointment) =>
+              new Date(`${appointment.date}`).valueOf() > Date.now().valueOf()
+          )
           .slice(0, 3)
           .map((appointment, idx) => (
             <div
@@ -85,7 +88,8 @@ export default function Appointments() {
                 <p>{formatDate(appointment.date)}</p>
                 <p>
                   {' '}
-                  <FieldTimeOutlined /> {formatTime(appointment.time.slice(0, 5))}
+                  <FieldTimeOutlined />{' '}
+                  {formatTime(appointment.time.slice(0, 5))}
                 </p>
               </div>
               <div>

@@ -12,6 +12,7 @@ import '../../css/patient.css';
 import { useEffect, useState } from 'react';
 import { useAppSelector } from '@/redux/store';
 import LoadingSpinner from '@/app/(components)/loading';
+import { getAccessToken, getUserType } from '@/app/helper';
 
 // import Cal from './calendar'
 
@@ -24,8 +25,8 @@ export default function Patient() {
   const { id } = currentPatient;
 
   useEffect(() => {
-    const userType = localStorage.getItem('userType');
-    const token = localStorage.getItem('accessToken');
+    const userType = getUserType();
+    const token = getAccessToken();
     if (!userType || userType !== 'patient' || !token) {
       router.push('/home');
     }
