@@ -11,6 +11,7 @@ import '../../../../css/globals.css';
 import '../../../../css/patient.css';
 import '../../../../css/doctor.css';
 import Image from 'next/image';
+import { TypeAppointment } from '../../../../../../server/types/types';
 
 export default function Patient({ params }: { params: { id: string } }) {
   const currentDoctor = useAppSelector(
@@ -21,7 +22,6 @@ export default function Patient({ params }: { params: { id: string } }) {
     return patient.id?.toString() == params.id;
   });
 
-  console.log(currentPatient?.patientAppointments);
   return (
     <>
       <AuthNavbar user={'doctor'} auth={'login'} />
@@ -44,7 +44,7 @@ export default function Patient({ params }: { params: { id: string } }) {
             years old
           </h3>
           <p className='text-xl'>{currentPatient?.gender}</p>
-          <h3 className='text-base'>DOB: {currentPatient?.dateOfBirth}</h3>
+          <h3 className='text-base'>Date Of Birth: {currentPatient?.dateOfBirth}</h3>
           <div className='phone-email-container'>
             <a href={`tel:${currentPatient?.phoneNumber}`}>
               {currentPatient?.phoneNumber}
@@ -69,14 +69,18 @@ export default function Patient({ params }: { params: { id: string } }) {
               )
               .map((appointment, idx) => (
                 <div className='illnesses-container' key={idx}>
-                  <h3>Illnesses</h3>
-                  <div>
-                    {appointment.illness.split(',').map((word, index) => (
-                      <p className='each-illness' key={index}>
-                        {toFirstLetterUpperCase(word) + word.slice(2)}
-                      </p>
-                    ))}
-                  </div>
+                  {idx === 0 && (
+                    <>
+                    <h3>Illnesses</h3>
+                    <div>
+                      {appointment.illness.split(',').map((word, index) => (
+                        <p className='each-illness' key={index}>
+                          {toFirstLetterUpperCase(word) + word.slice(2)}
+                        </p>
+                      ))}
+                    </div>
+                    </>
+                  )}
                 </div>
               ))}
           </div>
