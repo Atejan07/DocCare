@@ -1,6 +1,5 @@
 'use client';
-import { Form, message } from 'antd';
-
+import { Form } from 'antd';
 import React, { useState } from 'react';
 import Footer from '@/app/(components)/footer';
 import Link from 'next/link';
@@ -26,7 +25,6 @@ export default function Logout() {
   const currentPatient = useAppSelector(
     (state) => state.currentPatientReducer.value
   );
-  // const userType = typeof window !== 'undefined' && localStorage.getItem('userType') as string;
 
   const onFormLayoutChange = ({ size }: { size: SizeType }) => {
     setComponentSize(size);

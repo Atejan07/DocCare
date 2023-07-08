@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
-import '../css/junior-doctor.css';
 import apiService from '@/services/APIservices';
 import { useEffect, useState } from 'react';
 import { TypePatient } from '../../../server/types/types';
@@ -14,16 +13,17 @@ import JuniorDoctorMessages from './(dashboard)/messages';
 import { io } from 'socket.io-client';
 import LoadingSpinner from '@/app/(components)/loading';
 import { getAccessToken, getUserType } from '@/app/helper';
+import '../css/junior-doctor.css';
 const socket = io('ws://localhost:3001');
 
 export default function JuniorDoctorDashBoard() {
   const [allPatients, setAllPatients] = useState<TypePatient[]>([]);
   const [onlinePatientsId, setOnlinePatientsId] = useState<string[]>([]);
   const [loaded, setLoaded] = useState<Boolean>(false);
+  const [logged, setLogged] = useState<Boolean>(true);
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 1000
   );
-  const [logged, setLogged] = useState<Boolean>(true);
   const dispatch = useDispatch<AppDispatch>();
   const displaySection = useAppSelector(
     (state) => state.toggleDisplaySection.value
@@ -69,11 +69,7 @@ export default function JuniorDoctorDashBoard() {
 
   useEffect(() => {
     const token = typeof window !== 'undefined' && (getAccessToken() as string);
-    // const userType =
-    //   typeof window !== 'undefined' &&
-    //   (window.localStorage.getItem('userType') as string);
     const userType = typeof window !== 'undefined' && (getUserType() as string);
-
     if (token && userType === 'junior-doctor') {
       getPatients(token);
     }
