@@ -14,6 +14,7 @@ import { ExclamationCircleTwoTone } from '@ant-design/icons';
 import { addAppointment } from '@/redux/features/appointment-slice';
 
 import Image from 'next/image';
+import { openMessage } from '@/app/helper';
 
 export default function AvailableDoctorList() {
   const dispatch = useDispatch<AppDispatch>();
@@ -77,30 +78,16 @@ export default function AvailableDoctorList() {
 
   const [messageApi, contextHolder] = message.useMessage();
   const [messageContent, setMessageContent] = useState('');
-  const key = 'updatable';
-
-  const openMessage = () => {
-    messageApi.open({
-      key,
-      type: 'loading',
-      content: 'Loading...',
-    });
-    setTimeout(() => {
-      messageApi.open({
-        key,
-        type: 'success',
-        content: messageContent,
-        duration: 2,
-      });
-      setTimeout(() => {
-        router.push('/patient/appointment/confirmation');
-      }, 2000);
-    }, 1000);
-  };
 
   useEffect(() => {
     if (messageContent) {
-      openMessage();
+      openMessage(
+        messageApi,
+        'updatable',
+        messageContent,
+        router,
+        '/patient/appointment/confirmation'
+      );
     }
   }, [messageContent]);
 

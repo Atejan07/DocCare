@@ -12,7 +12,12 @@ import {
 import apiService from '@/services/APIservices';
 import { message } from 'antd';
 import { useEffect, useState } from 'react';
-import { formatDate, formatTime, getAccessToken } from '@/app/helper';
+import {
+  formatDate,
+  formatTime,
+  getAccessToken,
+  openMessage,
+} from '@/app/helper';
 
 export default function Appointments() {
   const router = useRouter();
@@ -36,30 +41,10 @@ export default function Appointments() {
 
   const [messageApi, contextHolder] = message.useMessage();
   const [messageContent, setMessageContent] = useState('');
-  const key = 'updatable';
-
-  const openMessage = () => {
-    messageApi.open({
-      key,
-      type: 'loading',
-      content: 'Loading...',
-    });
-    setTimeout(() => {
-      messageApi.open({
-        key,
-        type: 'success',
-        content: messageContent,
-        duration: 2,
-      });
-      setTimeout(() => {
-        router.push('/doctor');
-      }, 2000);
-    }, 1000);
-  };
 
   useEffect(() => {
     if (messageContent) {
-      openMessage();
+      openMessage(messageApi, 'updatable', messageContent, router, '/doctor');
     }
   }, [messageContent]);
 

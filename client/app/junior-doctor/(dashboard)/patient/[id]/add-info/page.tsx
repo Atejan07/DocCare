@@ -10,7 +10,7 @@ import '../../../../../css/doctor.css';
 import { Form, Input, message } from 'antd';
 import { FormEvent, useEffect, useState } from 'react';
 import apiService from '@/services/APIservices';
-import { getAccessToken } from '@/app/helper';
+import { getAccessToken, openMessage } from '@/app/helper';
 // import { TypeSummary } from '@/types/types';
 import { useDispatch } from 'react-redux';
 import { setPatientToView } from '@/redux/features/patient-to-view-slice';
@@ -25,30 +25,16 @@ export default function AddInfo({ params }: { params: { id: string } }) {
 
   const [messageApi, contextHolder] = message.useMessage();
   const [messageContent, setMessageContent] = useState('');
-  const key = 'updatable';
-
-  const openMessage = () => {
-    messageApi.open({
-      key,
-      type: 'loading',
-      content: 'Loading...',
-    });
-    setTimeout(() => {
-      messageApi.open({
-        key,
-        type: 'success',
-        content: messageContent,
-        duration: 2,
-      });
-      setTimeout(() => {
-        router.push(`/junior-doctor/patient/${selectedPatient?.id}`);
-      }, 2000);
-    }, 1000);
-  };
 
   useEffect(() => {
     if (messageContent) {
-      openMessage();
+      openMessage(
+        messageApi,
+        'updatable',
+        messageContent,
+        router,
+        `/junior-doctor/patient/${selectedPatient?.id}`
+      );
     }
   }, [messageContent]);
 

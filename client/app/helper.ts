@@ -87,3 +87,28 @@ export function clearLocalStorage() {
   accessToken = null;
   userType = null;
 }
+
+export function openMessage(
+  messageApi: any,
+  key: string,
+  messageContent: string,
+  router: any,
+  path: string
+) {
+  messageApi.open({
+    key,
+    type: 'loading',
+    content: 'Loading...',
+  });
+  setTimeout(() => {
+    messageApi.open({
+      key,
+      type: 'success',
+      content: messageContent,
+      duration: 2,
+    });
+    setTimeout(() => {
+      router.push(path);
+    }, 2000);
+  }, 1000);
+}

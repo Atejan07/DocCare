@@ -9,6 +9,7 @@ import Navbar from './navbar';
 import Footer from '@/app/(components)/footer';
 import apiService from '@/services/APIservices';
 import { useRouter } from 'next/navigation';
+import { openMessage } from '@/app/helper';
 
 type SizeType = Parameters<typeof Form>[0]['size'];
 
@@ -41,30 +42,10 @@ export default function Register() {
   const [images, setImages] = useState([]);
   const [messageApi, contextHolder] = message.useMessage();
   const [messageContent, setMessageContent] = useState('');
-  const key = 'updatable';
-
-  const openMessage = () => {
-    messageApi.open({
-      key,
-      type: 'loading',
-      content: 'Loading...',
-    });
-    setTimeout(() => {
-      messageApi.open({
-        key,
-        type: 'success',
-        content: messageContent,
-        duration: 2,
-      });
-      setTimeout(() => {
-        router.push('/patient');
-      }, 2000);
-    }, 1000);
-  };
 
   useEffect(() => {
     if (messageContent) {
-      openMessage();
+      openMessage(messageApi, 'updatable', messageContent, router, '/patient');
     }
   }, [messageContent]);
 

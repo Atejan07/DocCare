@@ -22,9 +22,7 @@ export default function Logout() {
   const [componentSize, setComponentSize] = useState<SizeType | 'default'>(
     'default'
   );
-  const [messageApi, contextHolder] = message.useMessage();
   const [messageContent, setMessageContent] = useState('');
-  const key = 'updatable';
   const currentPatient = useAppSelector(
     (state) => state.currentPatientReducer.value
   );
@@ -32,22 +30,6 @@ export default function Logout() {
 
   const onFormLayoutChange = ({ size }: { size: SizeType }) => {
     setComponentSize(size);
-  };
-
-  const openMessage = () => {
-    messageApi.open({
-      key,
-      type: 'loading',
-      content: 'Loading...',
-    });
-    setTimeout(() => {
-      messageApi.open({
-        key,
-        type: 'success',
-        content: messageContent,
-        duration: 2,
-      });
-    }, 1000);
   };
 
   function handleClick() {
@@ -61,7 +43,6 @@ export default function Logout() {
         .then((res) => {
           console.log(res);
           setMessageContent(res?.message as string);
-          openMessage();
           socket.emit('patient logged');
         });
     }
