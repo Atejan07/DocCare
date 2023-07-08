@@ -1,5 +1,4 @@
-
-/* --------  Chat Box --------  */
+/* --------  Chat Box Junior Doctor --------  */
 .messages-container-juniorDoctor {
   padding: 0;
   height: 100vh;
@@ -102,9 +101,9 @@
 
 .chat .messages-chat {
   padding: 3.57vh 5vw;
-  overflow-y: scroll; 
+  overflow-y: scroll;
   scrollbar-width: thin;
-  scroll-behavior: smooth; 
+  scroll-behavior: smooth;
 }
 
 
@@ -164,9 +163,9 @@
 
 }
 
-.back-button{
-margin-left: 1rem;
-cursor: pointer;
+.back-button {
+  margin-left: 1rem;
+  cursor: pointer;
 }
 
 .send-container {
@@ -181,7 +180,3 @@ cursor: pointer;
 .discussions-no-margin {
   grid-column: col-start 1 / span 6;
 }
-
-
-
-

@@ -5,6 +5,7 @@ h1 {
   text-align: left;
   font-weight: bold;
 }
+
 h2,
 h3,
 p {
@@ -35,6 +36,7 @@ form input::file-selector-button {
   border: 1px solid lightgray;
   border-radius: 3px;
 }
+
 /* ------------------ Grid dashboards ------------------ */
 .grid-container {
   display: grid;
@@ -44,7 +46,7 @@ form input::file-selector-button {
   row-gap: 2rem;
 }
 
-.grid-container > * {
+.grid-container>* {
   grid-column: col-start / span 12;
 }
 
@@ -56,6 +58,7 @@ form input::file-selector-button {
     row-gap: 2rem;
     margin: 3rem;
   }
+
   .profile-box {
     grid-column: col-start 1 / span 4;
     grid-row: 1 / span 2;
@@ -98,24 +101,19 @@ form input::file-selector-button {
     grid-column: col-start 5 / span 4;
     grid-row: 1 / span 2;
   }
+
   .doctor-patients-box {
     grid-column: col-start 9 / span 4;
     grid-row: 1 / span 2;
   }
 }
+
 .patients-box {
   grid-column: col-start 2 / span 1;
   grid-row: col-start 1 / span 1;
   justify-self: center;
   align-self: center;
 }
-/*
-.appointments-box {
-  grid-column: col-start 3 / span 1;
-  grid-row: col-start 1 / span 1;
-  justify-self: center;
-  align-self: center;
-} */
 
 /* -------- Patient -------- */
 
@@ -196,7 +194,7 @@ form input::file-selector-button {
   color: #f5ecf7;
 }
 
-/* Each patient profile */
+/* -------- Each patient profile -------- */
 
 @media (min-width: 700px) {
   .patient-picture-box {

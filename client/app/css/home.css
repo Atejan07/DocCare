@@ -8,8 +8,8 @@
   .grid-home .home-right,
   .grid-home .home-right-image {
     display: flex;
-    /* align-items: center; */
   }
+
   .grid-users {
     background-color: white;
   }
@@ -51,6 +51,7 @@
   .home-text {
     padding: 2rem;
   }
+
   .grid-users {
     background-color: white;
   }
@@ -59,8 +60,6 @@
 .home-btns {
   margin-top: 2rem;
   display: flex;
-  /* justify-content: center;
-  justify-items: center; */
 }
 
 .home-left h2 {
@@ -87,12 +86,6 @@
   height: 90vh;
 }
 
-.users .users-left {
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; */
-}
 
 .grid-home .home-right-image img {
   border-radius: 100%;
@@ -140,6 +133,7 @@
   .grid-users {
     background-color: white;
   }
+
   .about-doccare {
     width: 90%;
   }

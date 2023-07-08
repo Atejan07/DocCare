@@ -106,10 +106,7 @@ h3 {
 .prescriptions-container {
   height: 35vh;
   display: flex;
-  /* flex-wrap: wrap; */
   overflow-y: scroll;
-  /* flex-direction: row;
-  flex-wrap: wrap; */
 }
 
 @media (max-width: 600px) {
@@ -200,7 +197,6 @@ h3 {
 .messages-container-top {
   height: 70%;
   width: 90%;
-  /* margin: 0; */
   overflow-y: auto;
 }
 
@@ -209,7 +205,6 @@ h3 {
   width: 90%;
   border-radius: 2%;
   background-color: #a266b5;
-  /* margin: 0; */
   display: flex;
 }
 
