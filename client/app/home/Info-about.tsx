@@ -1,8 +1,9 @@
-import "../css/home.css";
+'use client';
+import '../css/home.css';
 
 export default function About() {
   return (
-    <div className="about-doccare">
+    <div className='about-doccare'>
       <h2>Introducing the Solution</h2>
       <p>
         DocCare is an innovative online platform connecting patients with

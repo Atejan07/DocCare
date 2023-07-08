@@ -6,8 +6,6 @@ import { TypePatient } from '../../../server/types/types';
 import AllPatients from './(dashboard)/patients';
 import AuthNavbar from '@/app/(components)/auth-navbar';
 import { useAppSelector } from '@/redux/store';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/redux/store';
 import { TUser } from '@/types/types';
 import JuniorDoctorMessages from './(dashboard)/messages';
 import { io } from 'socket.io-client';

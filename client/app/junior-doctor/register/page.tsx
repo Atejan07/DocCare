@@ -74,7 +74,10 @@ export default function Register() {
     formData.append('file', file);
     formData.append('api_key', process.env.CLOUDINARY_API_KEY as string);
     formData.append('folder', 'next');
-    formData.append('upload_preset', 'jujbod4w');
+    formData.append(
+      'upload_preset',
+      process.env.CLOUDINARY_PRESET || ('mmsru1ic' as string)
+    );
 
     await apiService.saveImage(formData).then((data: any) => {
       state.profilePicture = data.data.secure_url && data.data.secure_url;
